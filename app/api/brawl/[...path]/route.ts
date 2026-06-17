@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server'
 const API_BASE = 'https://api.brawlstars.com/v1'
 
 export async function GET(
-  req: Request,
-  { params }: any
+  _request: Request,
+  context: any
 ) {
   try {
-    const path = params.path.join('/')
+    const path = context.params.path.join('/')
 
     const response = await fetch(`${API_BASE}/${path}`, {
       headers: {
@@ -22,7 +22,7 @@ export async function GET(
     return NextResponse.json(data, {
       status: response.status,
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { message: 'Proxy error' },
       { status: 500 }
