@@ -4,18 +4,21 @@ const API_BASE = 'https://api.brawlstars.com/v1'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  context: { params: Promise<{ path: string[] }> }
 ) {
   try {
-    const path = params.path.join('/')
+    const { path } = await context.params
 
-    const response = await fetch(`${API_BASE}/${path}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
-        Accept: 'application/json',
-      },
-      cache: 'no-store',
-    })
+    const response = await fetch(
+      `${API_BASE}/${path.join('/')}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.BRAWL_API_KEY}`,
+          Accept: 'application/json',
+        },
+        cache: 'no-store',
+      }
+    )
 
     const data = await response.json()
 
