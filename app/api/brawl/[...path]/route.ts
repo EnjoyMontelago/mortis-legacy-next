@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
 const API_BASE = 'https://api.brawlstars.com/v1'
 
 export async function GET(
-  request: NextRequest,
   context: { params: Promise<{ path: string[] }> }
 ) {
   try {
